@@ -11,6 +11,7 @@ import {
 
  import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
+import { Public } from './decorators/public.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -20,6 +21,7 @@ export class AuthController {
     }
 
     //TODO use custom DTO class instead of Record 
+    @Public() //avoid rejection in case of not loaded
     @HttpCode(HttpStatus.OK)
     @Post('login')
     signIn(@Body() signInDTO : Record<string, any>){
