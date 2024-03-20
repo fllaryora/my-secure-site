@@ -1,11 +1,16 @@
-import { Controller,
+import { 
+    Controller,
     Body,
+    Get,
     Post,
     HttpCode,
-    HttpStatus
+    HttpStatus,
+    Request,
+    UseGuards
  } from '@nestjs/common';
 
  import { AuthService } from './auth.service';
+import { AuthGuard } from './auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -22,5 +27,18 @@ export class AuthController {
     }
     //Funciona con pepe
     //curl -X POST http://localhost:3000/auth/login -d '{"userName": "John", "password": "changeme"}' -H "Content-Type: application/json"
+
+    @UseGuards(AuthGuard)
+    @Get('profile')
+    getProfile(@Request() request){
+        return request.user;
+
+    }
+    //curl http://localhost:3000/auth/profile
+    
+    //curl -X POST http://localhost:3000/auth/login -d '{"userName": "John", "password": "changeme"}' -H "Content-Type: application/json"
+    //Respond ...{"access_token":"eyJhbGciOi..."}
+    
+    //curl http://localhost:3000/auth/profile -H "Authorization: Bearer eyJhbGciO...."
 
 }
