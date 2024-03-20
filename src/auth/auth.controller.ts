@@ -20,5 +20,7 @@ export class AuthController {
     signIn(@Body() signInDTO : Record<string, any>){
         return this.authService.signIn(signInDTO.userName, signInDTO.password);
     }
+    //Funciona con pepe
+    //curl -X POST http://localhost:3000/auth/login -d '{"userName": "John", "password": "changeme"}' -H "Content-Type: application/json"
 
 }
